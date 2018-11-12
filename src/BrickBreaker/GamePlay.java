@@ -22,7 +22,11 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
     private int ballXDirection = -1;
     private int ballYDirection = -2;
 
+    private MapGenerator map;
+
+
     public GamePlay(){
+        map = new MapGenerator(3, 7);
         addKeyListener(this);
         setFocusable(true);
         setFocusTraversalKeysEnabled(false);
@@ -35,6 +39,10 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
         //backGround
         g.setColor(Color.black);
         g.fillRect(1,1, 692, 592);
+
+        //draw map
+        map.draw((Graphics2D) g);
+
 
         //border
         g.setColor(Color.yellow);
