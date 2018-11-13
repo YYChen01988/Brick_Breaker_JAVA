@@ -2,6 +2,7 @@ package BrickBreaker;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,7 +21,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
     private int ballPositionX = 120;
     private int ballPositionY = 350;
     private int ballXDirection = -1;
-    private int ballYDirection = -2;
+    private int ballYDirection = -1;
 
     private MapGenerator map;
 
@@ -62,6 +63,33 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
         g.setColor(Color.yellow);
         g.fillOval(ballPositionX, ballPositionY, 20, 20);
 
+        if(totalBricks <= 0){
+            play = false;
+            ballXDirection = 0;
+            ballYDirection = 0;
+            g.setColor(Color.red);
+            g.setFont(new Font("Serif", Font.BOLD, 35));
+            g.drawString("You Won!", 190, 300);
+
+            g.setColor(Color.yellow);
+            g.setFont(new Font("Serif", Font.BOLD, 25));
+            g.drawString("Press Enter to Restart ", 230, 350);
+        }
+
+
+        if(ballPositionY > 570){
+            play = false;
+            ballXDirection = 0;
+            ballYDirection = 0;
+            g.setColor(Color.red);
+            g.setFont(new Font("Serif", Font.BOLD, 35));
+            g.drawString("Game Over! Scores: ", 190, 300);
+
+            g.setColor(Color.yellow);
+            g.setFont(new Font("Serif", Font.BOLD, 25));
+            g.drawString("Press Enter to Restart ", 230, 350);
+        }
+
         g.dispose();
     }
 
@@ -87,6 +115,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
                         Rectangle brickRect = rect;
 
                         if(ballRect.intersects(brickRect)){
+                            //System.out.println("intersection");
                             map.setBrickValue(0, i, j);
                             totalBricks --;
                             score += 5;
@@ -104,13 +133,15 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
 
             ballPositionX += ballXDirection;
             ballPositionY += ballYDirection;
+            //System.out.println(ballPositionX +" " + ballXDirection);
+
             if (ballPositionX < 0 ){
                 ballXDirection = -ballXDirection;
             }
             if (ballPositionY < 0 ){
                 ballYDirection = -ballYDirection;
             }
-            if (ballPositionX < 670 ){
+            if (ballPositionX > 670 ){
                 ballXDirection = -ballXDirection;
             }
         }
@@ -134,6 +165,26 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
                 moveLeft();
             }
         }
+
+        if(e.getKeyCode() == KeyEvent.VK_ENTER){
+            if(!play){
+                play = true;
+                ballPositionX = 120;
+                ballYDirection = 350;
+                ballXDirection = -1;
+                ballYDirection = -2;
+                playerX = 310;
+                score = 0;
+                totalBricks = 21;
+                map = new MapGenerator(3,7);
+
+                repaint();
+            }
+        }
+
+
+
+
     }
 
     public void moveRight(){
