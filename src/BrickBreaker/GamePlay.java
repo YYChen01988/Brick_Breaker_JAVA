@@ -57,7 +57,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
 
         //paddle
         g.setColor(Color.green);
-        g.fillRect(playerX, 550, 150, 8);
+        g.fillRect(playerX, 550, 100, 8);
 
         //Ball
         g.setColor(Color.yellow);
@@ -83,7 +83,7 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
             ballYDirection = 0;
             g.setColor(Color.red);
             g.setFont(new Font("Serif", Font.BOLD, 35));
-            g.drawString("Game Over! Scores: ", 190, 300);
+            g.drawString("Game Over! ", 190, 300);
 
             g.setColor(Color.yellow);
             g.setFont(new Font("Serif", Font.BOLD, 25));
@@ -170,9 +170,9 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
             if(!play){
                 play = true;
                 ballPositionX = 120;
-                ballYDirection = 350;
+                ballPositionY = 350;
                 ballXDirection = -1;
-                ballYDirection = -2;
+                ballYDirection = -1;
                 playerX = 310;
                 score = 0;
                 totalBricks = 21;
@@ -181,8 +181,6 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
                 repaint();
             }
         }
-
-
 
 
     }
